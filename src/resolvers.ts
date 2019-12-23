@@ -1,23 +1,12 @@
-const STOCK_DATA = [
-    {
-        id: 1,
-        title: 'Stock 1',
-        value: 3100,
-    },
-    {
-        id: 2,
-        title: 'Stock 2',
-        value: 200,
-    }
-];
+import { getRepository } from 'typeorm';
+import { Stock } from './entities/stock';
 
 // @TODO: add types for args
-
 export default {
     Query: {
-        stock: (parent, args, context, info) => {
-            return STOCK_DATA[args.id];
-        },
-        stocks: () => STOCK_DATA,
+        stock: async (parent: null, args: { id: number }) =>
+            await getRepository<Stock>(Stock).findOne(args.id),
+        stocks: async (parent: null) =>
+            await getRepository<Stock>(Stock).find(),
     },
 };

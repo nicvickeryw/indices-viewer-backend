@@ -7,6 +7,9 @@ import typeDefs from './type-defs';
 const server = new ApolloServer({
     resolvers,
     typeDefs,
+    context: (config) => ({
+        test: 'foo',
+    }),
     introspection: environment.apollo.introspection,
     playground: environment.apollo.playground,
 });

@@ -1,3 +1,5 @@
+import {Stock} from "./generated/graphql";
+
 const STOCK_DATA = [
     {
         id: 1,
@@ -12,11 +14,14 @@ const STOCK_DATA = [
 ];
 
 // @TODO: add types for args
+function getStock(parent, args, context, info): Stock {
+    return STOCK_DATA.find(stock => stock.id === args.id);
+}
 
 export default {
     Query: {
         stock: (parent, args, context, info) => {
-            return STOCK_DATA[args.id];
+            return STOCK_DATA.find(stock => stock.id === args.id);
         },
         stocks: () => STOCK_DATA,
     },

@@ -1,8 +1,10 @@
 import { ApolloServer } from 'apollo-server';
-
 import { environment } from './environment';
 import resolvers from './resolvers';
 import typeDefs from './type-defs';
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
+import config from './config/orm-config';
 
 const server = new ApolloServer({
     resolvers,
@@ -11,8 +13,15 @@ const server = new ApolloServer({
     playground: environment.apollo.playground,
 });
 
-server.listen(environment.port)
-    .then(({ url }) => console.log(`Server ready at ${url}. `));
+server.listen(environment.port).then(({ url }) => {
+    console.log(`Server ready at ${url}. `);
+
+    createConnection(config)
+        .then(async connection => {
+            console.log('db server running !');
+        })
+        .catch(error => console.log(error));
+});
 
 if (module.hot) {
     module.hot.accept();

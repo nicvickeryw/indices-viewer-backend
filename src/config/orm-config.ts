@@ -1,7 +1,8 @@
 import {Stock} from "../entities/stock";
 import {ConnectionOptions} from "typeorm";
+import {User} from "../entities/user";
 
-const MODELS = [Stock];
+const MODELS = [Stock, User];
 
 /**
  * @TODO: This is used instead of a static `ormconfig.json` file as there was an issue importing all files in a

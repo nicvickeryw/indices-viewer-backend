@@ -7,8 +7,21 @@ export default gql`
         value: Float!
     }
     
+    type User {
+        id: Int!
+        email: String!
+        firstName: String!
+        lastName: String!
+    }
+    
     type Query {
         stock(id: Int): Stock
         stocks: [Stock!]!
+        user(id: Int): User
+        users: [User!]!
+    }
+    
+    type Mutation {
+        login(email: String!): String!
     }
 `;
